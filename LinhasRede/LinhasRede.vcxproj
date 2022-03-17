@@ -24,7 +24,7 @@
     <ProjectGuid>{43554bee-358e-4b20-a2f6-003b9d07404d}</ProjectGuid>
     <RootNamespace>Linhas</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>LinhasList</ProjectName>
+    <ProjectName>LinhasRede</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
