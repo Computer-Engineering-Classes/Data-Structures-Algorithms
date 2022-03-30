@@ -1,5 +1,4 @@
 #include "Estacao.h"
-#include "List.h"
 #include <Windows.h>
 
 char Menu();
@@ -8,35 +7,38 @@ int main(int argc, char* argv[])
 {
     LIST Linhas[NO_LINHAS] = { NULL };
     SetConsoleOutputCP(CP_UTF8);
-    LerLinhas(Linhas);
+    ReadLinhas(Linhas);
     while (true)
     {
         char opcao = Menu();
         switch (opcao)
         {
         case 'a':
-            AtivarEstacao(Linhas);
+            ActEstacao(Linhas);
             break;
         case 'b':
-            AdicionarEstacao(Linhas);
+            AddEstacao(Linhas);
             break;
         case 'c':
-            EliminarEstacao(Linhas);
+            AddPosEstacao(Linhas);
             break;
         case 'd':
-            GuardarLinhas(Linhas);
+            DelEstacao(Linhas);
             break;
         case 'e':
-            CustoViagem(Linhas);
+            SaveLinhas(Linhas);
             break;
         case 'f':
-            MostrarLinhas(Linhas);
+            CustoViagem(Linhas);
             break;
         case 'g':
-            GuardarLinhas(Linhas);
+            ShowLinhas(Linhas);
+            break;
+        case 'h':
+            SaveLinhas(Linhas);
             return 0;
         default:
-            printf("Opcao invalida.\n");
+            puts("Opção inválida.");
         }
     }
     return 0;
@@ -45,15 +47,16 @@ int main(int argc, char* argv[])
 char Menu()
 {
     char opcao;
-    printf("Menu:\n");
-    printf("\ta) Ativar estacao\n");
-    printf("\tb) Adicionar estacao\n");
-    printf("\tc) Eliminar estacao\n");
-    printf("\td) Guardar em ficheiro\n");
-    printf("\te) Custo de uma viagem\n");
-    printf("\tf) Mostrar linhas\n");
-    printf("\tg) Sair\n");
-    printf("Opcao: ");
+    puts("Menu:");
+    puts("\ta) Ativar estação");
+    puts("\tb) Adicionar estação");
+    puts("\tc) Adicionar estação, numa certa posição");
+    puts("\td) Eliminar estação");
+    puts("\te) Guardar em ficheiro");
+    puts("\tf) Custo de uma viagem");
+    puts("\tg) Mostrar linhas");
+    puts("\th) Sair");
+    printf("Opção: ");
     scanf("%c%*c", &opcao);
     return opcao;
 }

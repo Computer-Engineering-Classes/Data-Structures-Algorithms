@@ -18,11 +18,12 @@ ESTACAO* ReadKEstacao();
 void SaveEstacao(FILE* fp, ESTACAO* est);
 
 void InitLinhas(LIST* Linhas);
-void MostrarLinhas(LIST* Linhas);
-void LerLinhas(LIST* Linhas);
-void GuardarLinhas(LIST* Linhas);
-STATUS AtivarEstacao(LIST* Linhas);
-STATUS AdicionarEstacao(LIST* Linhas);
-STATUS EliminarEstacao(LIST* Linhas);
+void ShowLinhas(LIST* Linhas);
+void ReadLinhas(LIST* Linhas);
+void SaveLinhas(LIST* Linhas);
+STATUS ActEstacao(LIST* Linhas);
+STATUS AddEstacao(LIST* Linhas);
+STATUS AddPosEstacao(LIST* Linhas);
+STATUS DelEstacao(LIST* Linhas);
 float CustoViagem(LIST* Linhas);
 LIST_NODE* FindEstacao(LIST* Linhas, char* desig);

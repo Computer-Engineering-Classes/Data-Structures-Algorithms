@@ -32,6 +32,7 @@ void initList(LIST *list);
 bool emptyList(LIST list);
 LIST_NODE *NewNode(void *data);
 STATUS InsertIni(LIST *list, void *data);
+STATUS InsertPos(LIST* list, void* data, int pos);
 STATUS InsertEnd(LIST *list, void *data);
 void RemoveIni(LIST* list);
 void RemoveEnd(LIST* list);

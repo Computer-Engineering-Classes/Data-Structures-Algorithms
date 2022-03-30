@@ -5,7 +5,7 @@
 * Funcao: Inicializa a lista 
 * 
 * Parametros: list - apontador para lista 
-*                    (duplo apontador para o primeiro no')              
+*                    (duplo apontador para o primeiro nó)              
 * Saida:      void 
 ***************************************************************/ 
 void initList(LIST *list) 
@@ -23,10 +23,10 @@ bool emptyList(LIST list)
     return list == NULL;
 } 
 /**************************************************************** 
-* Funcao: Cria um no' 
+* Funcao: Cria um nó 
 * 
-* Parametros: data - apontador generico para os dados a inserir no no' criado 
-* Saida:      apontador para o no' criado ou NULL em caso de erro 
+* Parametros: data - apontador generico para os dados a inserir no nó criado 
+* Saida:      apontador para o nó criado ou NULL em caso de erro 
 ***************************************************************/
 LIST_NODE *NewNode(void *data)
 {
@@ -39,11 +39,11 @@ LIST_NODE *NewNode(void *data)
     return new_node;
 }
 /**************************************************************** 
-* Funcao: Insere um no' no inicio da lista 
+* Funcao: Insere um nó no inicio da lista 
 * 
 * Parametros: list - apontador para lista 
-*                    (duplo apontador para o primeiro no') 
-*             data - apontador generico para os dados a inserir no no' criado 
+*                    (duplo apontador para o primeiro nó) 
+*             data - apontador generico para os dados a inserir no nó criado 
 * Saida:      OK se o nó foi inserido na LISTA e ERROR caso contrário 
 ***************************************************************/ 
 STATUS InsertIni(LIST *list, void *data)
@@ -57,13 +57,48 @@ STATUS InsertIni(LIST *list, void *data)
     }
     return ERROR;
 }
+/****************************************************************
+* Funcao: Insere um nó numa determinada posição da lista
+*
+* Parametros: list - apontador para lista
+*                    (duplo apontador para o primeiro nó)
+*             data - apontador generico para os dados a inserir no nó criado
+*             pos - posição da lista onde inserir o nó (0 a n - 1)
+* Saida:      OK se o nó foi inserido na LISTA e ERROR caso contrário
+***************************************************************/
+STATUS InsertPos(LIST* list, void* data, int pos)
+{
+    LIST_NODE* new_node = NULL, * temp = NULL;
+    int n = ListSize(*list);
+    if (pos <= n)
+    {
+        if (pos == 0)
+            return InsertIni(list, data);
+        if (pos == n)
+            return InsertEnd(list, data);
+        if ((new_node = NewNode(data)) != NULL)
+        {
+            int i = 0;
+            temp = list;
+            while (i < (pos - 1))
+            {
+                temp = NEXT(temp);
+                ++i;
+            }
+            NEXT(new_node) = NEXT(temp);
+            NEXT(temp) = new_node;
+            return OK;
+        }
+    }
+    return ERROR;
+}
 /**************************************************************** 
-* Funcao: Insere um no' no fim da lista 
+* Funcao: Insere um nó no fim da lista 
 * 
 * Parametros: list - apontador para lista 
-*                    (duplo apontador para o primeiro no') 
-*             data - apontador generico para os dados a inserir no no' criado 
-* Saida:      OK se o nó foi inserido na LISTA e ERROR caso contrário 
+*                    (duplo apontador para o primeiro nó) 
+*             data - apontador generico para os dados a inserir no nó criado 
+* Saida:      OK se o nó foi inserido na lista e ERROR caso contrário 
 ***************************************************************/
 STATUS InsertEnd(LIST *list, void *data)
 {
@@ -146,7 +181,7 @@ int ListSize(LIST list)
 /**************************************************************** 
 * Funcao: Escreve no ecra o conteudo da lista 
 * 
-* Parametros: list - apontador para o primeiro no' 
+* Parametros: list - apontador para o primeiro nó 
 * Saida:      void 
 ***************************************************************/
 void ShowValues(LIST list)

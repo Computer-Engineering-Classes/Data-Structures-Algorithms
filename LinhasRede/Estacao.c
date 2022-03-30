@@ -1,7 +1,7 @@
 #include "Estacao.h"
 
 /*
-* Ler dados de estação a partir de ficheiro
+* Ler dados de estaÃ§Ã£o a partir de ficheiro
 */
 ESTACAO* ReadEstacao(FILE* fp)
 {
@@ -16,24 +16,24 @@ ESTACAO* ReadEstacao(FILE* fp)
     return est;
 }
 /*
-* Ler dados de estação a partir do teclado
+* Ler dados de estaÃ§Ã£o a partir do teclado
 */
 ESTACAO* ReadKEstacao()
 {
     ESTACAO* est;
     est = malloc(sizeof(ESTACAO));
-    printf("Designação: ");
+    printf("DesignaÃ§Ã£o: ");
     scanf("%[^\n]", est->desig);
     printf("Custo: ");
     scanf("%f", &est->custo);
     printf("Ativa? (1/0): ");
     scanf("%d", &est->ativa);
-    printf("Nó de ligação? (1/0): ");
+    printf("NÃ³ de ligaÃ§Ã£o? (1/0): ");
     scanf("%d", &est->no);
     return est;
 }
 /*
-* Salvar dados de estação em ficheiro
+* Salvar dados de estaÃ§Ã£o em ficheiro
 */
 void SaveEstacao(FILE* fp, ESTACAO* est)
 {
@@ -53,18 +53,18 @@ void InitLinhas(LIST* Linhas)
 /*
 * Mostrar linhas da rede na consola
 */
-void MostrarLinhas(LIST* Linhas)
+void ShowLinhas(LIST* Linhas)
 {
     for (int i = 0; i < NO_LINHAS; i++)
     {
         ShowValues(Linhas[i]);
-        printf("\n\n");
+        puts("\n");
     }
 }
 /*
 * Ler linhas da rede a partir dos ficheiros
 */
-void LerLinhas(LIST* Linhas)
+void ReadLinhas(LIST* Linhas)
 {
     FILE* fp = NULL;
     char filename[MAX];
@@ -83,7 +83,7 @@ void LerLinhas(LIST* Linhas)
 /*
 * Guardar todas as linhas da rede nos ficheiros de texto correspondentes.
 */
-void GuardarLinhas(LIST* Linhas)
+void SaveLinhas(LIST* Linhas)
 {
     FILE* fp = NULL;
     char filename[MAX];
@@ -105,14 +105,14 @@ void GuardarLinhas(LIST* Linhas)
     }
 }
 /*
-* Tornar ativa/inativa uma estação
-* Designação deve ser lida através do teclado
+* Tornar ativa/inativa uma estaÃ§Ã£o
+* DesignaÃ§Ã£o deve ser lida atravÃ©s do teclado
 */
-STATUS AtivarEstacao(LIST* Linhas)
+STATUS ActEstacao(LIST* Linhas)
 {
     LIST_NODE* node;
     char desig[MAX];
-    printf("Designacao: ");
+    printf("DesignaÃ§Ã£o: ");
     scanf("%[^\n]%*c", desig);
     node = FindEstacao(Linhas, desig);
     if (node != NULL)
@@ -124,38 +124,56 @@ STATUS AtivarEstacao(LIST* Linhas)
     return ERROR;
 }
 /*
-* Acrescentar uma estação a uma linha
-* Número deve ser lido através do teclado bem como todos os dados dessa estação
+* Acrescentar uma estaÃ§Ã£o a uma linha
+* NÃºmero deve ser lido atravÃ©s do teclado bem como todos os dados dessa estaÃ§Ã£o
 */
-STATUS AdicionarEstacao(LIST* Linhas)
+STATUS AddEstacao(LIST* Linhas)
 {
     int no_linha;
     ESTACAO* est;
-    printf("N.º linha: ");
+    printf("N.Âº linha: ");
     scanf("%d%*c", &no_linha);
     if (no_linha > 0 && no_linha < 6)
     {
         est = ReadKEstacao();
-        InsertEnd(&Linhas[no_linha - 1], est);
-        return OK;
+        return InsertEnd(&Linhas[no_linha - 1], est);
     }
     return ERROR;
 }
 /*
-* Eliminar uma estação de uma determinada linha
-* O número da linha e a designação devem ser lidas através do teclado
+* Acrescentar uma estaÃ§Ã£o a uma linha, numa determinada posiÃ§Ã£o
 */
-STATUS EliminarEstacao(LIST* Linhas)
+STATUS AddPosEstacao(LIST* Linhas)
+{
+    int no_linha;
+    ESTACAO* est;
+    printf("N.Âº linha: ");
+    scanf("%d%*c", &no_linha);
+    if (no_linha > 0 && no_linha < 6)
+    {
+        est = ReadKEstacao();
+        int pos;
+        printf("PosiÃ§Ã£o da linha (0..n-1): ");
+        scanf("%d%*c", &pos);
+        return InsertPos(&Linhas[no_linha - 1], est, pos);
+    }
+    return ERROR;
+}
+/*
+* Eliminar uma estaÃ§Ã£o de uma determinada linha
+* O nÃºmero da linha e a designaÃ§Ã£o devem ser lidas atravÃ©s do teclado
+*/
+STATUS DelEstacao(LIST* Linhas)
 {
     char desig[MAX];
     int no_linha;
-    printf("N.º linha: ");
+    printf("N.Âº linha: ");
     scanf("%d%*c", &no_linha);
     if (no_linha < 1 || no_linha > 5)
     {
         return ERROR;
     }
-    printf("Designacao: ");
+    printf("DesignaÃ§Ã£o: ");
     scanf("%[^\n]%*c", desig);
     ESTACAO* est = DATA(Linhas[no_linha - 1]);
     if (strcmp(est->desig, desig) == 0)
@@ -181,7 +199,7 @@ STATUS EliminarEstacao(LIST* Linhas)
 }
 /*
 * Calcular o custo de uma viagem
-* Devem ser lidas as estações de origem e de destino através do teclado
+* Devem ser lidas as estaÃ§Ãµes de origem e de destino atravÃ©s do teclado
 */
 float CustoViagem(LIST* Linhas)
 {
@@ -204,8 +222,8 @@ float CustoViagem(LIST* Linhas)
     return custo;
 }
 /*
-* Procurar uma estação nas linhas da rede
-* Saida: apontador do nó em que se encontra a estação
+* Procurar uma estaÃ§Ã£o nas linhas da rede
+* Saida: apontador do nÃ³ em que se encontra a estaÃ§Ã£o
 */
 LIST_NODE* FindEstacao(LIST* Linhas, char* desig)
 {
