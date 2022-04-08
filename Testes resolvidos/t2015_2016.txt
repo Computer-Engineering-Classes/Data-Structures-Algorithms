@@ -1,0 +1,53 @@
+//Exercicio 1
+int contarMarcaDual(LIST L)
+{
+	int contador = 0;
+	char marca[20];
+	LIST *aux;
+	aux = L;
+	printf("Insira o nome da marca:\n\n");
+	scanf(" %[^\n]", &marca);
+	while(aux != NULL)
+	{
+		if(strcmp(((SMARTPHONE*)DATA(aux))->marca, marca) == 0 && ((SMARTPHONE*)DATA(aux))->dualSIM == TRUE)
+		{
+			contador++;
+		}
+		aux = NEXT(aux);
+	}
+	return contador;
+}
+
+//Exercicio 2
+LIST criarListaPar(LIST L)
+{
+	int contador = 1;
+	LIST novoL = NULL, *aux;
+	aux = L;
+	while(aux != NULL)
+	{
+		if(contador % 2 == 0)
+		{
+			novoL = InsertIni(novoL, ((SMARTPHONE*)DATA(aux)));
+		}
+		aux = NEXT(aux);
+		contador++;
+	}
+	return novoL;
+}
+
+//Exercicio 3
+void insDepoisMarca(LIST *pL, char *marca, void *data)
+{
+	LIST *novo_no = newNode(data), *aux;
+	aux = *pL;
+	while(aux != NULL)
+	{
+		if(strcmp(((SMARTPHONE*)DATA(aux))->marca, marca) == 0)
+		{
+			NEXT(novo_no) = NEXT(aux);
+			NEXT(aux) = novo_no;
+			break;
+		}
+	}
+}

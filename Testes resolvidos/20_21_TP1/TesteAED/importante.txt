@@ -1,0 +1,30 @@
+void DeleteRecursive(LIST* list)
+{
+	LIST prev = NULL, tmp = NULL;
+	LIST_NODE* aux = NULL;
+	if (*list != NULL)
+	{
+		while (((SMARTPHONE*)(*list)->data)->stock == 0)
+		{
+			aux = (*list)->next;
+			free((*list)->data);
+			free(*list);
+			*list = aux;
+		}
+		tmp = *list;
+		prev = tmp;
+		tmp = tmp->next;
+		while (tmp != NULL)
+		{
+			if (((SMARTPHONE*)(tmp->data))->stock == 0)
+			{
+				prev->next = tmp->next;
+				free(tmp->data);
+				free(tmp);
+				tmp = prev;
+			}
+			prev = tmp;
+			tmp = tmp->next;
+		}
+	}
+}

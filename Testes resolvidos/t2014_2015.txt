@@ -1,0 +1,88 @@
+// Exercicio 1
+LISTA inserirElementoNoFim(LISTA L, void *pX)
+{
+	NO_LISTA *pAux, *novo_no;
+	if((novo_no=criarNo(pX)) != NULL)
+	{
+		L = novo_no;
+		NEXT(L) = NULL;
+	}
+	else
+	{
+		pAux = L;
+		while(NEXT(pAux) != NULL)
+		{
+			pAux = NEXT(pAux);
+		}
+		NEXT(pAux) = novo_no;
+		NEXT(novo_no) = NULL;
+	}
+	return L;
+}
+
+//Exercicio 2
+void mudarIva(LISTA L)
+{
+	int novoIva = 0, ivaAlterar = 0, contador = 0;
+	float preco = 0;
+	NO_LISTA *pAux;
+	pAux = L;
+	printf("Insira a taxa de iva dos produtos que pretende alterar:\n");
+	scanf(" %d", &ivaAlterar);
+	printf("Insira a nova taxa de iva:\n");
+	scanf(" %d", &novoIva);
+	while(pAux != NULL)
+	{
+		if(((PRODUTO*)DATA(pAux))->iva == ivaAlterar)
+		{
+			preco = ((((PRODUTO*)DATA(pAux))->preco * 100) / (100 + ((PRODUTO*)DATA(pAux))->iva)));
+			preco = preco + (preco * (novoIva / 100));
+			((PRODUTO*)DATA(pAux))->preco = preco;
+			((PRODUTO*)DATA(pAux))->iva = novoIva;
+			contador++;
+		}
+	}
+	if(contador == 0)
+	{
+		printf("Nenhum produto com esse valor!\n\n");
+	}
+}
+
+//Exercicio 3
+LISTA eliminarProduto(LISTA L, char *nome)
+{
+	int contador = 0;
+	NO_LISTA *pAux, *Ant;
+	pAux = L;
+	Ant = L;
+	if(L == NULL)
+	{
+		printf("Lista vazia!\n\n");
+		return L;
+	}
+	else
+	{
+		while(pAux != NULL && contador == 0)
+		{
+			if(((PRODUTO*)DATA(pAux))->nome == nome)
+			{
+				if(pAux == L)
+				{
+					L = NEXT(pAux);
+					free(DATA(pAux));
+					free(pAux);
+				}
+				else
+				{
+					NEXT(Ant) = NEXT(pAux);
+					free(DATA(pAux));
+					free(pAux);
+					contador++;
+				}
+				pAux = NEXT(pAux);
+				NEXT(Ant) = pAux;
+			}
+		}
+		return L;
+	}
+}

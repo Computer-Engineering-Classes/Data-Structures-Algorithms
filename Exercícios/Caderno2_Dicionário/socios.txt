@@ -1,0 +1,4 @@
+Diogo Medeiros;70633;Uzumaki,Junji Ito;
+Joao Rodrigues;70579;Uzumaki,Junji Ito;Harry Potter: The Goblet of Fire,J. K. Rowling;
+Eduardo Chaves;70611;Uzumaki,Junji Ito;Harry Potter: The Goblet of Fire,J. K. Rowling;
+Pedro Silva;70649;Uzumaki,Junji Ito;The Lord of the Rings,J. R. R. Tolkien;

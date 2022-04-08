@@ -1,0 +1,4 @@
+Samsung;Galaxy S6;554.99;0
+Apple;iPhone 6s;759.99;1
+Microsoft;Lumia 950 XL;529.99;0
+Huawei;G650;199.99;0

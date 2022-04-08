@@ -1,0 +1,4 @@
+Diogo Medeiros;70633;0;-1;-1;-1;-1;
+Joao Rodrigues;70579;0;1;-1;-1;-1;
+Eduardo Chaves;70611;0;-1;-1;2;-1;
+Pedro Silva;70649;0;-1;-1;-1;2;
