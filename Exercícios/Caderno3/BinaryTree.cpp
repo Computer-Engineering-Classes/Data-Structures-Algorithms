@@ -14,9 +14,9 @@ int DepthBT(BTREE BT)
 int LevelBSTNode(BTREE BT, int data)
 {
 	int depth = 0;
-	while (BT != NULL && *(int*)DATA(BT) != data)
+	while (BT != NULL && *(int *)DATA(BT) != data)
 	{
-		if (data < *(int*)DATA(BT))
+		if (data < *(int *)DATA(BT))
 			BT = BT->pLeft;
 		else
 			BT = BT->pRight;
@@ -32,7 +32,7 @@ int LevelBTNode(BTREE BT, int data)
 	int depth = -1;
 	if (BT == NULL)
 		return -1;
-	if (*(int*)BT->pData == data || (depth = LevelBTNode(BT->pLeft, data)) >= 0 || (depth = LevelBTNode(BT->pRight, data)) >= 0)
+	if (*(int *)BT->pData == data || (depth = LevelBTNode(BT->pLeft, data)) >= 0 || (depth = LevelBTNode(BT->pRight, data)) >= 0)
 		return (depth + 1);
 	return depth;
 }
@@ -66,13 +66,12 @@ BTREE findAgeBTNode(BTREE BT, int age)
 	{
 		while (BT != NULL)
 		{
-			if (age == *(int*)BT->pData)
+			if (age == *(int *)BT->pData)
 				return BT;
+			else if (age < *(int *)BT->pData)
+				BT = BT->pLeft;
 			else
-				if (age < *(int*)BT->pData)
-					BT = BT->pLeft;
-				else
-					BT = BT->pRight;
+				BT = BT->pRight;
 		}
 	}
 	return NULL;
@@ -84,7 +83,7 @@ void postOrderTreeWalk(BTREE BT)
 	{
 		postOrderTreeWalk(BT->pLeft);
 		postOrderTreeWalk(BT->pRight);
-		printf("%d, ", *(int*)BT->pData);
+		printf("%d, ", *(int *)BT->pData);
 	}
 }
 //-------------------------------------------
@@ -92,7 +91,7 @@ void preOrderTreeWalk(BTREE BT)
 {
 	if (!emptyBTree(BT))
 	{
-		printf("%d, ", *(int*)BT->pData);
+		printf("%d, ", *(int *)BT->pData);
 		preOrderTreeWalk(BT->pLeft);
 		preOrderTreeWalk(BT->pRight);
 	}
@@ -103,12 +102,12 @@ void inOrderTreeWalk(BTREE BT)
 	if (!emptyBTree(BT))
 	{
 		inOrderTreeWalk(BT->pLeft);
-		printf("%d, ", *(int*)BT->pData);
+		printf("%d, ", *(int *)BT->pData);
 		inOrderTreeWalk(BT->pRight);
 	}
 }
 //-------------------------------------------
-STATUS initBTree(BTREE* pBT)
+STATUS initBTree(BTREE *pBT)
 {
 	*pBT = NULL;
 	return OK;
@@ -119,15 +118,15 @@ bool emptyBTree(BTREE BT)
 	return (BT == NULL);
 }
 //-------------------------------------------
-bool isLeaf(BTREE_NODE* pBT)
+bool isLeaf(BTREE_NODE *pBT)
 {
 	return ((LEFT(pBT) == NULL) && (RIGHT(pBT) == NULL));
 }
 //-------------------------------------------
-STATUS createNewBTNode(BTREE_NODE** pNew, void* pData)
+STATUS createNewBTNode(BTREE_NODE **pNew, void *pData)
 {
-	BTREE_NODE* pTemp;
-	if ((pTemp = (BTREE_NODE*)malloc(sizeof(BTREE_NODE))) == NULL)
+	BTREE_NODE *pTemp;
+	if ((pTemp = (BTREE_NODE *)malloc(sizeof(BTREE_NODE))) == NULL)
 		return ERROR;
 	*pNew = pTemp;
 	DATA(pTemp) = pData;
@@ -142,10 +141,10 @@ STATUS createNewBTNode(BTREE_NODE** pNew, void* pData)
 //-------------------------------------------
 void printIntBTree(BTREE BT)
 {
-	if (emptyBTree(BT)) 
+	if (emptyBTree(BT))
 		return;
 	printIntBTree(LEFT(BT));
-	printf("%d, ", *(int*)DATA(BT));
+	printf("%d, ", *(int *)DATA(BT));
 	printIntBTree(RIGHT(BT));
 	return;
 }
@@ -153,19 +152,20 @@ void printIntBTree(BTREE BT)
 // This function is not for use with any BST
 // It can only be used with INT BSTs
 //-------------------------------------------
-STATUS insertIntBST(BTREE* pBT, void* pData)
+STATUS insertIntBST(BTREE *pBT, void *pData)
 {
 	if (emptyBTree(*pBT))
 	{
-		BTREE_NODE* pNew;
+		BTREE_NODE *pNew;
 		if (createNewBTNode(&pNew, pData) == ERROR)
 			return ERROR;
 		*pBT = pNew;
 		return OK;
 	}
-	else if (*(int*)(pData) < *(int*)(DATA(*pBT)))
+	else if (*(int *)(pData) < *(int *)(DATA(*pBT)))
 		insertIntBST(&(LEFT(*pBT)), pData);
-	else insertIntBST(&(RIGHT(*pBT)), pData);
+	else
+		insertIntBST(&(RIGHT(*pBT)), pData);
 	return OK;
 }
 //-------------------------------------------
