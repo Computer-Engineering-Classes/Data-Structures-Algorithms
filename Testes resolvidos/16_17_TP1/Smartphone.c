@@ -70,13 +70,6 @@ STATUS ReadFile(LIST* list, const char* name_file)
 void DelStockZero(LIST* list)
 {
 	LIST prev = NULL, tmp = NULL;
-	while (*list != NULL && ((SMARTPHONE*)DATA(*list))->stock == 0)
-	{
-		tmp = NEXT(*list);
-		free(DATA(*list));
-		free(*list);
-		*list = tmp;
-	}
 	if (*list != NULL)
 	{
 		prev = *list;
@@ -94,5 +87,10 @@ void DelStockZero(LIST* list)
 			prev = tmp;
 			tmp = NEXT(tmp);
 		}
+		// Remove first node, if necessary
+		tmp = *list;
+		*list = NEXT(*list);
+		free(DATA(tmp));
+		free(tmp);
 	}
 }
