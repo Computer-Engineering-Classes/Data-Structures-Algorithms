@@ -29,3 +29,18 @@ LIST_NODE* InsertIni(LIST* list, void* data)
 	}
 	return(new_node);
 }
+
+STATUS ToCircular(LIST list)
+{
+	if (list == NULL)
+	{
+		return ERROR;
+	}
+	LIST start = list;
+	while (NEXT(list) != NULL)
+	{
+		list = NEXT(list);
+	}
+	NEXT(list) = start;
+	return OK;
+}

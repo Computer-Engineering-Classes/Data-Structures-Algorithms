@@ -1,5 +1,4 @@
 #pragma once
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdlib.h>
@@ -21,4 +20,5 @@ typedef LIST_NODE* LIST;
 
 LIST_NODE* NewNode(void*);
 LIST_NODE* InsertIni(LIST*, void*);
+STATUS ToCircular(LIST);
 void ShowLista(LIST, void (*showFunc)(void*));
